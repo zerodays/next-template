@@ -1,3 +1,4 @@
+import { injectSsrTranslations } from '@/i18n/inject-translations';
 import { Inter } from 'next/font/google';
 
 import SampleForm from '@/components/sample-form';
@@ -12,3 +13,5 @@ export default function Home() {
     </main>
   );
 }
+
+export const getStaticProps = injectSsrTranslations(['common', 'form']);

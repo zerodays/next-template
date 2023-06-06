@@ -32,3 +32,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
   - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
   - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
+- [next-i18next](https://github.com/i18next/next-i18next) for internationalization - see [src/i18n/README.md](./src/i18n/README.md) for more details
