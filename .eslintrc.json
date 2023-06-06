@@ -27,7 +27,7 @@
     "check-file/filename-naming-convention": [
       "error",
       {
-        "./src/**/*.{jsx,tsx}": "KEBAB_CASE",
+        "./src/**/!(*pages)/*.{jsx,tsx}": "KEBAB_CASE",
         "./src/**/*.{js,ts}": "KEBAB_CASE"
       }
     ]
