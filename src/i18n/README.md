@@ -16,13 +16,25 @@ return <div>{t('hello')}</div>;
 
 More details can be found in [react-i18next documentation](https://react.i18next.com/).
 
+### Change language
+
+To change the language, use the `useRouter` hook from `next/router` and call the `push` function with the new language as a parameter. For example:
+
+```tsx
+const changeLanguage = (router: Router, locale: Locale) => {
+  router.push(router.asPath, router.asPath, { locale: language });
+};
+```
+
+Be careful when using this function, if it happens at the same time as a redirect or a redirect happened right before or after this function, it will cause problems.
+
 ### Best practices
 
 Few important things to remember:
 
 - translations should be used only in React components, not in other files (you need to use `useTranslation` hook),
 - zod validation messages should be defined by keys only (instances of `LocaleKey` type in [src/i18n/i18n.ts](./i18n.ts)) and translated in React components,
-- in case you need to use JSX elements inside localized strings, check out `Trans` component from `react-i18next` library.
+- in case you need to use JSX elements inside localized strings, check out `Trans` component from `react-i18next` library. Currently, we are most satisfied with [this alternative usage](https://react.i18next.com/latest/trans-component#alternative-usage-components-array).
 
 ## Adding new page
 
