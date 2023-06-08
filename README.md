@@ -4,7 +4,11 @@ This is template to bootstrap new Next.js projects. It includes everything you n
 
 ## Getting Started :rocket:
 
-1. Use this template to [create new repository](https://github.com/zerodays/next-template/generate).
+1. Use this template to create new Next.js project.
+
+```
+npx create-next-app -e https://github.com/zerodays/next-template
+```
 
 2. After that, install dependencies:
 
@@ -33,3 +37,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
   - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
 - [next-i18next](https://github.com/i18next/next-i18next) for internationalization - see [src/i18n/README.md](./src/i18n/README.md) for more details
+- [react-hook-form](https://react-hook-form.com/) for forms
+- [zod](https://zod.dev/) for form validation
+- Github Actions for lint, typecheck and localizations checks
+
+## What still needs to added to this template?
+
+- [ ] Add [zustand](https://github.com/pmndrs/zustand) for state management
+- [ ] Add [Jest](https://jestjs.io/) for unit testing
+- [ ] Add [Cypress](https://www.cypress.io/) for end-to-end testing
+
+## Great! What should I do next?
+
+- Update `README.md` file to reflect your project
+- Create new [Infisical project](https://app.infisical.com/) and connect it to newly created repository with `infisical init` command
+- Add branch protection rule for `master` branch (require at least one review before merging, require status checks to pass before merging, do not allow bypassing checks)
+- Connect your project to [Vercel](https://vercel.com/) for automatic deployments
+- Choose data fetching library depending on your needs (zodios, react-query, supabase client, etc.)
+- Enjoy working on your new project! :tada:
