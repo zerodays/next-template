@@ -2,15 +2,14 @@
 // Simple script to validate translations
 // Usage: yarn i18n
 
-import { readdirSync, readFileSync } from 'fs';
-import { join } from 'path';
+const { readdirSync, readFileSync } = require('fs');
+const { i18n } = require('../next-i18next.config.js');
+const path = require('path');
 
-import i18n from '../i18n.js';
-
-const localesFolder = './locales';
-const getLocalePath = (locale: string) => join(localesFolder, locale);
+const localesFolder = './public/locales';
+const getLocalePath = (locale: string) => path.join(localesFolder, locale);
 const getLocaleFile = (locale: string, file: string) =>
-  join(getLocalePath(locale), file.toString());
+  path.join(getLocalePath(locale), file);
 
 /**
  * Deep diff between keys of two objects.
@@ -93,8 +92,6 @@ const deepKeysDiff = (
 // 1.
 // Check if all locales in next-i18next.config.js are present in public/locales and vice versa
 const locales = readdirSync(localesFolder);
-// Ignore index.ts
-locales.splice(locales.indexOf('index.ts'), 1);
 
 const missingLocales = i18n.locales.filter(
   (locale: string) => !locales.includes(locale),
@@ -125,32 +122,13 @@ if (!i18n.locales.includes(i18n.defaultLocale)) {
 
 const defaultLocaleFiles = readdirSync(getLocalePath(i18n.defaultLocale));
 
-// 3.
-// Check if namespaces in pages are valid
-const namespaces = defaultLocaleFiles.map((file: string) =>
-  file.replace('.json', ''),
-);
-
-for (const page in i18n.pages) {
-  // Check if all namespaces in pages are present in default locale
-  const pageNamespaces = i18n.pages[page];
-  for (const namespace of pageNamespaces ?? []) {
-    if (!namespaces.includes(namespace)) {
-      console.error(
-        `i18n.js: Namespace '${namespace}' in page '${page}' is not present in default locale '${i18n.defaultLocale}'.`,
-      );
-      process.exit(1);
-    }
-  }
-}
-
 for (const locale of locales) {
   // Skip default locale
   if (locale === i18n.defaultLocale) {
     continue;
   }
 
-  // 4.
+  // 3.
   // Check if namespaces match
   const localeFiles = readdirSync(getLocalePath(locale));
 
@@ -178,7 +156,7 @@ for (const locale of locales) {
     process.exit(1);
   }
 
-  // 5.
+  // 4.
   // Check if keys match
 
   for (const file of defaultLocaleFiles) {
@@ -188,8 +166,8 @@ for (const locale of locales) {
     );
     const localeFile = readFileSync(getLocaleFile(locale, file));
 
-    const defaultLocaleJson = JSON.parse(defaultLocaleFile.toString());
-    const localeJson = JSON.parse(localeFile.toString());
+    const defaultLocaleJson = JSON.parse(defaultLocaleFile);
+    const localeJson = JSON.parse(localeFile);
 
     // Check if all keys in default locale are present in locale
     const { missingKeys, extraKeys, invalidTypes } = deepKeysDiff(
