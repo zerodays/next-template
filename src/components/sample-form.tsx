@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import useUserStore from '@/stores/user-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useTranslation from 'next-translate/useTranslation';
 import { z } from 'zod';
@@ -20,6 +21,9 @@ type SampleFormValues = z.infer<typeof SampleFormSchema>;
 // Example form using react-hook-form and zod
 const SampleForm = () => {
   const { t } = useTranslation('form');
+  // Use user store
+  const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -34,8 +38,9 @@ const SampleForm = () => {
 
   const onSubmit = (values: SampleFormValues) => {
     // Handle form submission
-    console.log(values);
     setSubmitting(true);
+    setUser(values);
+    setSubmitting(false);
   };
 
   return (
@@ -70,6 +75,7 @@ const SampleForm = () => {
         disabled={submitting}>
         {t('submit')}
       </button>
+      <div>{user?.email}</div>
     </form>
   );
 };
