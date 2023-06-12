@@ -10,7 +10,9 @@
     "prepare": "husky install",
     "pretify": "prettier --write .",
     "commit": "commit",
-    "i18n": "ts-node ./scripts/validate-translations.ts"
+    "gen-i18n": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/generate-i18n-config.ts",
+    "check-i18n": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/validate-translations.ts",
+    "i18n": "yarn gen-i18n && yarn check-i18n"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
