@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## What's included?
 
-- Next.js 13 with [Pages router](https://nextjs.org/docs/pages/building-your-application/routing)
+- Next.js 13 with [APP router](https://nextjs.org/docs/app)
 - [TailwindCSS](https://tailwindcss.com/) for styling
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/) for finding problems with following rule sets:
@@ -36,14 +36,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
   - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
   - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
-- [next-i18next](https://github.com/i18next/next-i18next) for internationalization - see [src/i18n/README.md](./src/i18n/README.md) for more details
+- [next-translate](https://github.com/aralroca/next-translate) for internationalization
 - [react-hook-form](https://react-hook-form.com/) for forms
 - [zod](https://zod.dev/) for form validation
+- [zustand](https://github.com/pmndrs/zustand) for state management
 - Github Actions for lint, typecheck and localizations checks
 
 ## What still needs to added to this template?
 
-- [ ] Add [zustand](https://github.com/pmndrs/zustand) for state management
 - [ ] Add [Jest](https://jestjs.io/) for unit testing
 - [ ] Add [Cypress](https://www.cypress.io/) for end-to-end testing
 
