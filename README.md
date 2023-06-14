@@ -7,7 +7,7 @@ This is template to bootstrap new Next.js projects. It includes everything you n
 1. Use this template to create new Next.js project.
 
 ```
-npx create-next-app -e https://github.com/zerodays/next-template
+yarn create next-app -e https://github.com/zerodays/next-template
 ```
 
 2. After that, install dependencies:
