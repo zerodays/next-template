@@ -1,6 +1,6 @@
 // import all namespaces (for the default language only)
-import common from './../../public/locales/en/common.json';
-import form from './../../public/locales/en/form.json';
+import common from '../../public/locales/en/common.js';
+import form from '../../public/locales/en/form.js';
 
 export type LocalResources = {
   common: typeof common;
