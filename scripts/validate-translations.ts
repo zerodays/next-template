@@ -2,14 +2,18 @@
 // Simple script to validate translations
 // Usage: yarn i18n
 
-const { readdirSync, readFileSync } = require('fs');
+const { readdirSync } = require('fs');
 const { i18n } = require('../next-i18next.config.js');
 const path = require('path');
 
 const localesFolder = './public/locales';
+// 'require' imports work relative to the file, not the cwd
+const localesFolderRelative = '../public/locales';
+
 const getLocalePath = (locale: string) => path.join(localesFolder, locale);
+
 const getLocaleFile = (locale: string, file: string) =>
-  path.join(getLocalePath(locale), file);
+  path.join(path.join(localesFolderRelative, locale), file);
 
 /**
  * Deep diff between keys of two objects.
@@ -160,19 +164,17 @@ for (const locale of locales) {
   // Check if keys match
 
   for (const file of defaultLocaleFiles) {
-    // Open json files
-    const defaultLocaleFile = readFileSync(
-      getLocaleFile(i18n.defaultLocale, file),
-    );
-    const localeFile = readFileSync(getLocaleFile(locale, file));
+    // Open js text files
+    const defaultLocaleFile = getLocaleFile(i18n.defaultLocale, file);
+    const localeFile = getLocaleFile(locale, file);
 
-    const defaultLocaleJson = JSON.parse(defaultLocaleFile);
-    const localeJson = JSON.parse(localeFile);
+    const defaultLocaleData = require(defaultLocaleFile);
+    const localeData = require(localeFile);
 
     // Check if all keys in default locale are present in locale
     const { missingKeys, extraKeys, invalidTypes } = deepKeysDiff(
-      defaultLocaleJson,
-      localeJson,
+      defaultLocaleData,
+      localeData,
     );
 
     if (missingKeys.length > 0) {

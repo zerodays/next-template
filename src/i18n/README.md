@@ -73,7 +73,7 @@ When adding a new language, the following steps are required:
 
 When adding a new namespace, the following steps are required:
 
-1. Create a new file in `public/locales/<language>/<namespace>.json` (e.g. `public/locales/en/landing_page.json`).
+1. Create a new file in `public/locales/<language>/<namespace>.js` (e.g. `public/locales/en/landing_page.js`).
 2. Repeat step 1 for all languages.
 3. Import the namespace for default language in [src/i18n/i18n.ts](./i18n.ts)
 4. Update `LocalResources` and `LocaleKey` types in [src/i18n/i18n.ts](./i18n.ts) with the new namespace.
