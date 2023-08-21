@@ -8,11 +8,9 @@ const createJestConfig = nextJest({
 
 /** @type {import('jest').Config} */
 const config = {
-  setupFilesAfterEnv: [
-    '@testing-library/jest-dom/extend-expect',
-    '@testing-library/react',
-  ],
+  setupFilesAfterEnv: ['./jest.setup.js'],
   testMatch: ['**/*.test.[jt]s?(x)'],
+  testEnvironment: 'jsdom',
 };
 
 module.exports = createJestConfig(config);
