@@ -1,5 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
+import '@testing-library/jest-dom';
+
 import SampleForm from '@/components/sample-form';
 
 jest.mock('next-i18next', () => ({

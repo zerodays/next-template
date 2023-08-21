@@ -29,7 +29,8 @@
       {
         "./src/**/!(*pages)/*.{jsx,tsx}": "KEBAB_CASE",
         "./src/**/*.{js,ts}": "KEBAB_CASE"
-      }
+      },
+      { "ignoreMiddleExtensions": true }
     ],
     "no-restricted-imports": [
       "error",

@@ -12,6 +12,7 @@ const config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  testMatch: ['**/*.test.[jt]s?(x)'],
   moduleDirectories: ['node_modules', '<rootDir>'], // <-- This is important for Jest to pick up your external __mocks__ directory
   testEnvironment: 'jest-environment-jsdom',
 };
