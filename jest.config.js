@@ -8,13 +8,11 @@ const createJestConfig = nextJest({
 
 /** @type {import('jest').Config} */
 const config = {
-  setupFilesAfterEnv: ['./jest.setup.js'],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+  setupFilesAfterEnv: [
+    '@testing-library/jest-dom/extend-expect',
+    '@testing-library/react',
+  ],
   testMatch: ['**/*.test.[jt]s?(x)'],
-  moduleDirectories: ['node_modules', '<rootDir>'], // <-- This is important for Jest to pick up your external __mocks__ directory
-  testEnvironment: 'jest-environment-jsdom',
 };
 
 module.exports = createJestConfig(config);
