@@ -7,8 +7,6 @@ export type LocalResources = {
   form: typeof form;
 };
 
-export type LocaleKey = keyof typeof form | keyof typeof common;
-
 const LOCALES = ['en', 'sl'] as const;
 
 export type Locale = (typeof LOCALES)[number];

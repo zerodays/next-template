@@ -24,6 +24,8 @@ const getLocaleFile = (locale: string, file: string) =>
  * - the keys present in obj2 but not in obj1
  * - keys where the type of value is invalid (different from obj1 to obj2 or not string or object)
  */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const deepKeysDiff = (
   /* eslint-disable @typescript-eslint/no-explicit-any */
   obj1: any,
@@ -40,20 +42,26 @@ const deepKeysDiff = (
   const extraKeys: string[] = [];
   const invalidTypes: string[] = [];
 
-  for (const key in obj1) {
+  const pairs1 = pairsWithoutPlural(obj1);
+  const pairs2 = pairsWithoutPlural(obj2);
+
+  for (const pair of pairs1) {
+    const key = pair.key;
+
     // Check if key is present in obj2
-    if (!(key in obj2)) {
+    const otherPair = pairs2.find((pair2) => pair2.key === key);
+    if (!otherPair) {
       missingKeys.push(key);
       continue;
     }
 
     // Check type of value
-    if (typeof obj1[key] !== typeof obj2[key]) {
+    if (typeof pair.value !== typeof otherPair.value) {
       invalidTypes.push(key);
       continue;
     }
 
-    const type = typeof obj1[key];
+    const type = typeof pair.value;
 
     if (type === 'string') {
       // If value is a string, we're done
@@ -78,9 +86,9 @@ const deepKeysDiff = (
   }
 
   // Check if there are extra keys in obj2
-  for (const key in obj2) {
-    if (!(key in obj1)) {
-      extraKeys.push(key);
+  for (const pair of pairs2) {
+    if (!pairs1.find((pair1) => pair1.key === pair.key)) {
+      extraKeys.push(pair.key);
     }
 
     // No need to recurse here, we already checked all keys in obj1.
@@ -93,76 +101,47 @@ const deepKeysDiff = (
   };
 };
 
-// 1.
-// Check if all locales in next-i18next.config.js are present in public/locales and vice versa
-const locales = readdirSync(localesFolder);
+// See docs here for supported suffixes:
+// https://www.i18next.com/translation-function/plurals#languages-with-multiple-plurals
+const plural_suffixes = ['zero', 'one', 'two', 'few', 'many', 'other'];
 
-const missingLocales = i18n.locales.filter(
-  (locale: string) => !locales.includes(locale),
-);
-
-if (missingLocales.length > 0) {
-  console.error('Missing locales in public/locales:', missingLocales);
-  process.exit(1);
-}
-
-const extraLocales = locales.filter(
-  (locale: string) => !i18n.locales.includes(locale),
-);
-
-if (extraLocales.length > 0) {
-  console.error('Extra locales in public/locales:', extraLocales);
-  process.exit(1);
-}
-
-// 2.
-// Check if default locale is valid
-if (!i18n.locales.includes(i18n.defaultLocale)) {
-  console.error(
-    `Default locale '${i18n.defaultLocale}' in next-i18next.config.js is invalid.`,
-  );
-  process.exit(1);
-}
-
-const defaultLocaleFiles = readdirSync(getLocalePath(i18n.defaultLocale));
-
-for (const locale of locales) {
-  // Skip default locale
-  if (locale === i18n.defaultLocale) {
-    continue;
+function stripPluralSuffix(key: string): string {
+  for (const suffix of plural_suffixes) {
+    if (key.endsWith(`_${suffix}`)) {
+      return key.slice(0, -suffix.length - 1);
+    }
   }
 
-  // 3.
-  // Check if namespaces match
-  const localeFiles = readdirSync(getLocalePath(locale));
+  return key;
+}
 
-  const missingNamespaces = defaultLocaleFiles.filter(
-    (file: string) => !localeFiles.includes(file),
+function pairsWithoutPlural(obj: any) {
+  const keys: { key: string; value: any }[] = [];
+  for (const key in obj) {
+    const isString = typeof obj[key] === 'string';
+
+    if (isString) {
+      keys.push({ key: stripPluralSuffix(key), value: obj[key] });
+    } else {
+      keys.push({ key, value: obj[key] });
+    }
+  }
+  // Remove duplicates
+  return keys.filter(
+    (pair, index, self) => self.findIndex((p) => p.key === pair.key) === index,
   );
+}
 
-  if (missingNamespaces.length > 0) {
+const validateDefaultLocale = () => {
+  if (!i18n.locales.includes(i18n.defaultLocale)) {
     console.error(
-      `Missing namespaces in ${getLocalePath(locale)}:`,
-      missingNamespaces,
+      `Default locale '${i18n.defaultLocale}' in next-i18next.config.js is invalid.`,
     );
     process.exit(1);
   }
+};
 
-  const extraNamespaces = localeFiles.filter(
-    (file: string) => !defaultLocaleFiles.includes(file),
-  );
-
-  if (extraNamespaces.length > 0) {
-    console.error(
-      `Extra namespaces in ${getLocalePath(locale)}:`,
-      extraNamespaces,
-    );
-    process.exit(1);
-  }
-
-  // 4.
-  // Check if keys match
-
+const validateFiles = (locale: string, defaultLocaleFiles: any[]) => {
   for (const file of defaultLocaleFiles) {
     // Open js text files
     const defaultLocaleFile = getLocaleFile(i18n.defaultLocale, file);
@@ -203,6 +182,83 @@ for (const locale of locales) {
       process.exit(1);
     }
   }
+};
+
+const validate = () => {
+  // 1.
+  // Check if all locales in next-i18next.config.js are present in public/locales and vice versa
+  const locales = readdirSync(localesFolder);
+
+  const missingLocales = i18n.locales.filter(
+    (locale: string) => !locales.includes(locale),
+  );
+
+  if (missingLocales.length > 0) {
+    console.error('Missing locales in public/locales:', missingLocales);
+    process.exit(1);
+  }
+
+  const extraLocales = locales.filter(
+    (locale: string) => !i18n.locales.includes(locale),
+  );
+
+  if (extraLocales.length > 0) {
+    console.error('Extra locales in public/locales:', extraLocales);
+    process.exit(1);
+  }
+
+  // 2.
+  // Check if default locale is valid
+  validateDefaultLocale();
+
+  const defaultLocaleFiles = readdirSync(getLocalePath(i18n.defaultLocale));
+
+  for (const locale of locales) {
+    // Skip default locale
+    if (locale === i18n.defaultLocale) {
+      continue;
+    }
+
+    // 3.
+    // Check if namespaces match
+    const localeFiles = readdirSync(getLocalePath(locale));
+
+    const missingNamespaces = defaultLocaleFiles.filter(
+      (file: string) => !localeFiles.includes(file),
+    );
+
+    if (missingNamespaces.length > 0) {
+      console.error(
+        `Missing namespaces in ${getLocalePath(locale)}:`,
+        missingNamespaces,
+      );
+      process.exit(1);
+    }
+
+    const extraNamespaces = localeFiles.filter(
+      (file: string) => !defaultLocaleFiles.includes(file),
+    );
+
+    if (extraNamespaces.length > 0) {
+      console.error(
+        `Extra namespaces in ${getLocalePath(locale)}:`,
+        extraNamespaces,
+      );
+      process.exit(1);
+    }
+
+    // 4.
+    // Check if keys match
+    validateFiles(locale, defaultLocaleFiles);
+  }
+  console.log('All good! 🎉');
+};
+
+// Run validation only if script is called directly
+if (require.main === module) {
+  validate();
 }
 
-console.log('All good! 🎉');
+module.exports = {
+  deepKeysDiff,
+};
