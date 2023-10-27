@@ -24,6 +24,33 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Useful commands
+
+Lint your code and typecheck it:
+
+```bash
+yarn lint
+yarn tsc
+```
+
+Run unit tests:
+
+```bash
+yarn test
+```
+
+Check if all localizations keys match between languages:
+
+```bash
+yarn i18n
+```
+
+Analyze bundle size:
+
+```bash
+ANALYZE=true yarn build
+```
+
 ## What's included?
 
 - Next.js 13 with [Pages router](https://nextjs.org/docs/pages/building-your-application/routing)
@@ -44,8 +71,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## What still needs to added to this template?
 
 - [ ] Add [zustand](https://github.com/pmndrs/zustand) for state management
-- [ ] Add [Jest](https://jestjs.io/) for unit testing
-- [ ] Add [Cypress](https://www.cypress.io/) for end-to-end testing
+- [ ] Add [Playwright](https://playwright.dev/) for end-to-end testing
+- [ ] Add server-side project setup & TRPC for API
+- [ ] Add [next-axiom](https://github.com/axiomhq/next-axiom) for logging
 
 ## Great! What should I do next?
 
