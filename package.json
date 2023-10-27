@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
+    "@next/bundle-analyzer": "^14.0.0",
     "@sentry/nextjs": "^7.69.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
