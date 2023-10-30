@@ -2,13 +2,14 @@
 // Simple script to validate translations
 // Usage: yarn i18n
 
-const { readdirSync } = require('fs');
-const { i18n } = require('../next-i18next.config.js');
-const path = require('path');
+import { readdirSync } from 'fs';
+import path from 'path';
 
-const localesFolder = './public/locales';
+import { defaultLocale, LOCALES } from '../src/i18n/i18n';
+
+const localesFolder = './src/i18n';
 // 'require' imports work relative to the file, not the cwd
-const localesFolderRelative = '../public/locales';
+const localesFolderRelative = '../src/i18n';
 
 const getLocalePath = (locale: string) => path.join(localesFolder, locale);
 
@@ -107,7 +108,7 @@ const plural_suffixes = ['zero', 'one', 'two', 'few', 'many', 'other'];
 
 function stripPluralSuffix(key: string): string {
   for (const suffix of plural_suffixes) {
-    if (key.endsWith(`_${suffix}`)) {
+    if (key.endsWith(`#${suffix}`)) {
       return key.slice(0, -suffix.length - 1);
     }
   }
@@ -133,9 +134,9 @@ function pairsWithoutPlural(obj: any) {
 }
 
 const validateDefaultLocale = () => {
-  if (!i18n.locales.includes(i18n.defaultLocale)) {
+  if (!LOCALES.includes(defaultLocale)) {
     console.error(
-      `Default locale '${i18n.defaultLocale}' in next-i18next.config.js is invalid.`,
+      `Default locale '${defaultLocale}' in next-i18next.config.js is invalid.`,
     );
     process.exit(1);
   }
@@ -144,7 +145,7 @@ const validateDefaultLocale = () => {
 const validateFiles = (locale: string, defaultLocaleFiles: any[]) => {
   for (const file of defaultLocaleFiles) {
     // Open js text files
-    const defaultLocaleFile = getLocaleFile(i18n.defaultLocale, file);
+    const defaultLocaleFile = getLocaleFile(defaultLocale, file);
     const localeFile = getLocaleFile(locale, file);
 
     const defaultLocaleData = require(defaultLocaleFile);
@@ -184,22 +185,25 @@ const validateFiles = (locale: string, defaultLocaleFiles: any[]) => {
   }
 };
 
+const isNotTsFile = (file: string) =>
+  !(file.endsWith('.ts') || file.endsWith('.tsx'));
+
 const validate = () => {
   // 1.
-  // Check if all locales in next-i18next.config.js are present in public/locales and vice versa
-  const locales = readdirSync(localesFolder);
+  // Check if all locales in config are present in i18n folder and vice versa
+  const locales = readdirSync(localesFolder).filter(isNotTsFile);
 
-  const missingLocales = i18n.locales.filter(
+  const missingLocales = LOCALES.filter(
     (locale: string) => !locales.includes(locale),
   );
 
   if (missingLocales.length > 0) {
-    console.error('Missing locales in public/locales:', missingLocales);
+    console.error(`Missing locales in ${localesFolder}:`, missingLocales);
     process.exit(1);
   }
 
   const extraLocales = locales.filter(
-    (locale: string) => !i18n.locales.includes(locale),
+    (locale: string) => !LOCALES.includes(locale as any),
   );
 
   if (extraLocales.length > 0) {
@@ -211,11 +215,11 @@ const validate = () => {
   // Check if default locale is valid
   validateDefaultLocale();
 
-  const defaultLocaleFiles = readdirSync(getLocalePath(i18n.defaultLocale));
+  const defaultLocaleFiles = readdirSync(getLocalePath(defaultLocale));
 
   for (const locale of locales) {
     // Skip default locale
-    if (locale === i18n.defaultLocale) {
+    if (locale === defaultLocale) {
       continue;
     }
 

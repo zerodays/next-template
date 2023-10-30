@@ -1,13 +1,4 @@
-// import all namespaces (for the default language only)
-import common from '../../public/locales/en/common.js';
-import form from '../../public/locales/en/form.js';
-
-export type LocalResources = {
-  common: typeof common;
-  form: typeof form;
-};
-
-const LOCALES = ['en', 'sl'] as const;
+export const LOCALES = ['en', 'sl'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
