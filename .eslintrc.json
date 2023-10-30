@@ -31,13 +31,6 @@
         "./src/**/*.{js,ts}": "KEBAB_CASE"
       },
       { "ignoreMiddleExtensions": true }
-    ],
-    "no-restricted-imports": [
-      "error",
-      {
-        "name": "react-i18next",
-        "message": "Do not import from react-i18next. Use i18n from next-i18next instead."
-      }
     ]
   }
 }

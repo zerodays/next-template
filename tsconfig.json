@@ -27,7 +27,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next-i18next.config.js",
     ".next/types/**/*.ts",
     "scripts/validate-translations.ts"
   ],

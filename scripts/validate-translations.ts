@@ -135,9 +135,7 @@ function pairsWithoutPlural(obj: any) {
 
 const validateDefaultLocale = () => {
   if (!LOCALES.includes(defaultLocale)) {
-    console.error(
-      `Default locale '${defaultLocale}' in next-i18next.config.js is invalid.`,
-    );
+    console.error(`Default locale '${defaultLocale}' is invalid.`);
     process.exit(1);
   }
 };

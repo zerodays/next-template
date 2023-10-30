@@ -14,5 +14,5 @@ const TestSafety = () => {
   t('test', { count: 1, invalidKey: 'invalid' });
 
   // This one is valid
-  t('test', { count: 1 }); // <- if error is thrown here, update key to any valid key in src/i18n/en/common.json
+  t('test', { count: 1 }); // <- if error is thrown here, update key to any valid key in src/i18n/en/common.ts
 };
