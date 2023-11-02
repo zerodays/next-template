@@ -6,7 +6,6 @@ const { deepKeysDiff } = require('./validate-translations');
 
 // Mocking modules
 jest.mock('fs');
-jest.mock('../next-i18next.config.js');
 
 describe('Translation Validator', () => {
   afterEach(() => {
@@ -39,13 +38,13 @@ describe('Translation Validator', () => {
     it('should remove number suffixes from keys', () => {
       const obj1 = {
         a: '1',
-        b: { c_one: '2', c_other: '3', d_zero: '3', d_other: '3' },
-        e: { f: { g_one: '4', g_other: '5' } },
+        b: { 'c#one': '2', 'c#other': '3', 'd#zero': '3', 'd#other': '3' },
+        e: { f: { 'g#one': '4', 'g#other': '5' } },
       };
       const obj2 = {
         a: '1',
         b: { c: '2', d: '3' },
-        e: { f: { g_zero: '4', g_other: '5', g_two: '32' } },
+        e: { f: { 'g#zero': '4', 'g#other': '5', 'g#two': '32' } },
       };
 
       const diff = deepKeysDiff(obj1, obj2);
@@ -57,13 +56,13 @@ describe('Translation Validator', () => {
     it('should return correct diff of keys', () => {
       const obj1 = {
         a: '1',
-        b: { c_one: '2', c_other: '3', d_zero: '3', d_other: '3' },
+        b: { 'c#one': '2', 'c#other': '3', 'd#zero': '3', 'd#other': '3' },
         e: { f: { h: 'asdf' } },
       };
       const obj2 = {
         a: '1',
         b: { c: '2' },
-        e: { f: { g_zero: '4', g_other: '5', g_two: '32' } },
+        e: { f: { 'g#zero': '4', 'g#other': '5', 'g#two': '32' } },
       };
 
       const diff = deepKeysDiff(obj1, obj2);
@@ -74,13 +73,13 @@ describe('Translation Validator', () => {
 
     it('should keep object suffixes', () => {
       const obj1 = {
-        a_one: {
+        'a#one': {
           e: '1',
         },
-        a_other: {
+        'a#other': {
           e: '1',
         },
-        b: { c_one: '2', c_other: '3', d_zero: '3', d_other: '3' },
+        b: { 'c#one': '2', 'c#other': '3', 'd#zero': '3', 'd#other': '3' },
       };
       const obj2 = {
         a: { e: '1' },
@@ -88,7 +87,7 @@ describe('Translation Validator', () => {
       };
 
       const diff = deepKeysDiff(obj1, obj2);
-      expect(diff.missingKeys).toEqual(['a_one', 'a_other', 'b.d']);
+      expect(diff.missingKeys).toEqual(['a#one', 'a#other', 'b.d']);
       expect(diff.extraKeys).toEqual(['a']);
       expect(diff.invalidTypes).toEqual([]);
     });

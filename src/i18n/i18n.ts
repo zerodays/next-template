@@ -1,13 +1,6 @@
-// import all namespaces (for the default language only)
-import common from '../../public/locales/en/common.js';
-import form from '../../public/locales/en/form.js';
+import type { ReactNode } from 'react';
 
-export type LocalResources = {
-  common: typeof common;
-  form: typeof form;
-};
-
-const LOCALES = ['en', 'sl'] as const;
+export const LOCALES = ['en', 'sl'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -20,6 +13,27 @@ export const isLocale = (
     return false;
   }
   return LOCALES.includes(locale as Locale);
+};
+
+export type UnsafeT = (
+  localeKey: string,
+  params?: Record<string, string | ReactNode | number>,
+) => string | ReactNode;
+
+/**
+ * Strip locale from pathname.
+ * @example
+ * stripLocaleFromPathName('/sl/test') // => '/test'
+ * stripLocaleFromPathName('/en/test') // => '/en/test'
+ * stripLocaleFromPathName('/test') // => '/test'
+ */
+export const stripLocaleFromPathName = (pathname: string) => {
+  for (const locale of LOCALES) {
+    if (pathname.startsWith(`/${locale}/`)) {
+      return pathname.slice(locale.length + 1);
+    }
+  }
+  return pathname;
 };
 
 // Assert that defaultLocale is in LOCALES

@@ -53,17 +53,17 @@ ANALYZE=true yarn build
 
 ## What's included?
 
-- Next.js 13 with [Pages router](https://nextjs.org/docs/pages/building-your-application/routing)
+- Next.js 13 with [App router](https://nextjs.org/docs/app/building-your-application/routing)
 - [TailwindCSS](https://tailwindcss.com/) for styling
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/) for finding problems with following rule sets:
-  - [next/core-web-vitals](https://nextjs.org/docs/pages/building-your-application/configuring/eslint)
+  - [next/core-web-vitals](https://nextjs.org/docs/app/building-your-application/configuring/eslint)
   - [eslint:recommended](https://eslint.org/docs/latest/rules/)
   - [typescript-eslint](https://typescript-eslint.io/)
   - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
   - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
   - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
-- [next-i18next](https://github.com/i18next/next-i18next) for internationalization - see [src/i18n/README.md](./src/i18n/README.md) for more details
+- [next-international](https://next-international.vercel.app/) for internationalization
 - [react-hook-form](https://react-hook-form.com/) for forms
 - [zod](https://zod.dev/) for form validation
 - Github Actions for lint, typecheck and localizations checks

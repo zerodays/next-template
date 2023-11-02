@@ -1,7 +1,9 @@
+'use client';
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useScopedI18n } from '@/i18n/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 
 // Always use zod to validate your form
@@ -17,7 +19,7 @@ type SampleFormValues = z.infer<typeof SampleFormSchema>;
 
 // Example form using react-hook-form and zod
 const SampleForm = () => {
-  const { t } = useTranslation('form');
+  const t = useScopedI18n('form');
 
   const [submitting, setSubmitting] = useState(false);
 

@@ -1,17 +1,8 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
 import '@testing-library/jest-dom';
 
-import SampleForm from '@/components/sample-form';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-jest.mock('next-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-    i18n: {
-      language: 'en',
-    },
-  }),
-}));
+import SampleForm from '@/components/sample-form';
 
 describe('SampleForm Component', () => {
   it('renders correctly', () => {

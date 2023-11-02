@@ -1,11 +1,10 @@
-import { injectSsrTranslations } from '@/i18n/inject-translations';
 import { Inter } from 'next/font/google';
 
 import SampleForm from '@/components/sample-form';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+export default function Page() {
   return (
     <main
       className={`flex h-screen flex-col items-center justify-center gap-8 text-center ${inter.className}`}>
@@ -19,5 +18,3 @@ export default function Home() {
     </main>
   );
 }
-
-export const getStaticProps = injectSsrTranslations(['common', 'form']);
