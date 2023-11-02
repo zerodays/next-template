@@ -6,5 +6,5 @@ export const { getI18n, getScopedI18n, getStaticParams } = createI18nServer({
   sl: () => import('./sl'),
 });
 
-export const getUnsafeI18n = getI18n as unknown as () => UnsafeT;
-export const getUnsafeScopedI18n = getScopedI18n as unknown as () => UnsafeT;
+export const getUnsafeI18n = getI18n as unknown as () => Promise<UnsafeT>;
+export const getUnsafeScopedI18n = getScopedI18n as unknown as () => Promise<UnsafeT>;
