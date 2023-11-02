@@ -9,6 +9,7 @@
 - [ ] 🔫 PR is small and easy to review
 - [ ] 🧪 tests were added/updated where applicable
 - [ ] 📜 documentation was updated (README.md, Notion etc.)
+- [ ] 🔭 observability is sensible
 
 ## Reviewer checklist:
 - [ ] 🧠 tested manually
