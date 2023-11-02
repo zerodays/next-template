@@ -20,6 +20,22 @@ export type UnsafeT = (
   params?: Record<string, string | ReactNode | number>,
 ) => string | ReactNode;
 
+/**
+ * Strip locale from pathname.
+ * @example
+ * stripLocaleFromPathName('/sl/test') // => '/test'
+ * stripLocaleFromPathName('/en/test') // => '/en/test'
+ * stripLocaleFromPathName('/test') // => '/test'
+ */
+export const stripLocaleFromPathName = (pathname: string) => {
+  for (const locale of LOCALES) {
+    if (pathname.startsWith(`/${locale}/`)) {
+      return pathname.slice(locale.length + 1);
+    }
+  }
+  return pathname;
+};
+
 // Assert that defaultLocale is in LOCALES
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _checkDefaultLocale: Locale = defaultLocale;

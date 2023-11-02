@@ -1,4 +1,3 @@
-// locales/client.ts
 'use client';
 
 import { ReactNode } from 'react';
