@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "infisical run -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^3.1.0",
     "@next/bundle-analyzer": "^14.0.0",
     "@sentry/nextjs": "7.76.0",
+    "@t3-oss/env-nextjs": "^0.7.1",
     "autoprefixer": "10.4.14",
     "next": "^14.0.0",
     "next-international": "^1.1.3",
@@ -26,12 +27,9 @@
     "react-hook-form": "^7.44.3",
     "tailwindcss": "3.3.2",
     "typescript": "^5.2.2",
-    "zod": "^3.22.3"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^20.8.9",
-    "@types/react": "^18.2.33",
-    "@types/react-dom": "^18.2.14",
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
     "@commitlint/prompt-cli": "^18.2.0",
@@ -39,6 +37,9 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.7",
+    "@types/node": "^20.8.9",
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "eslint": "^8.52.0",
     "eslint-config-next": "^14.0.1",
