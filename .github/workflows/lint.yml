@@ -27,6 +27,10 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - uses: zerodays/action-infisical@v1
+        with:
+          infisical_token: ${{ secrets.INFISICAL_TOKEN }}
+          environment: "staging"
       - name: Typecheck
         run: |
-          yarn tsc
+          source .env && yarn tsc
