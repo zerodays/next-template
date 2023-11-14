@@ -17,7 +17,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
     "@next/bundle-analyzer": "^14.0.0",
-    "@sentry/nextjs": "7.76.0",
+    "@sentry/nextjs": "7.77.0",
     "autoprefixer": "10.4.14",
     "next": "^14.0.0",
     "next-international": "^1.1.3",
