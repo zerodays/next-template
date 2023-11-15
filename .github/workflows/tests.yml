@@ -19,6 +19,4 @@ jobs:
           infisical_token: ${{ secrets.INFISICAL_TOKEN }}
           environment: 'staging'
       - name: Run tests
-        run: source .env && pnpm test
-      - name: Create report
         run: source .env && pnpm jest --reporters="summary" --reporters="github-actions"
