@@ -4,11 +4,15 @@ import { z } from 'zod';
 // Base schema for common variables
 const baseSchema = {
   server: {
-    NODE_ENV: z.enum(['development', 'test', 'production']),
+    NODE_ENV: z
+      .enum(['development', 'test', 'production'])
+      .default('development'),
     SENTRY_AUTH_TOKEN: z.string(),
   },
   client: {
-    NEXT_PUBLIC_NODE_ENV: z.enum(['development', 'test', 'production']),
+    NEXT_PUBLIC_NODE_ENV: z
+      .enum(['development', 'test', 'production'])
+      .default('development'),
   },
   // ... other shared properties
 };
