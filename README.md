@@ -7,19 +7,19 @@ This is template to bootstrap new Next.js projects. It includes everything you n
 1. Use this template to create new Next.js project.
 
 ```
-yarn create next-app -e https://github.com/zerodays/next-template
+pnpm create next-app -e https://github.com/zerodays/next-template
 ```
 
 2. After that, install dependencies:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 3. Start the development server:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -29,26 +29,26 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Lint your code and typecheck it:
 
 ```bash
-yarn lint
-yarn tsc
+pnpm lint
+pnpm tsc
 ```
 
 Run unit tests:
 
 ```bash
-yarn test
+pnpm test
 ```
 
 Check if all localizations keys match between languages:
 
 ```bash
-yarn i18n
+pnpm i18n
 ```
 
 Analyze bundle size:
 
 ```bash
-ANALYZE=true yarn build
+ANALYZE=true pnpm build
 ```
 
 ## What's included?

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // Simple script to validate translations
-// Usage: yarn i18n
+// Usage: pnpm i18n
 
 import { readdirSync } from 'fs';
 import path from 'path';
