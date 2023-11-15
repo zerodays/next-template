@@ -1,5 +1,7 @@
 await import('./src/env.mjs');
 import { withSentryConfig } from '@sentry/nextjs';
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import { withAxiom } from 'next-axiom';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -22,8 +24,10 @@ const nextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
-  silent: true,
-  org: 'zerodays',
-  project: 'next-template',
-});
+export default withAxiom(
+  withSentryConfig(nextConfig, {
+    silent: true,
+    org: 'zerodays',
+    project: 'next-template',
+  }),
+);
