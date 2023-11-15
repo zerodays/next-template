@@ -20,4 +20,4 @@ jobs:
           environment: 'staging'
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          test-script: source .env && pnpm test
+          test-script: source .env && NODE_ENV=development pnpm test
