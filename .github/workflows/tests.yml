@@ -10,14 +10,14 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: zerodays/action-infisical@v1
-        with:
-          infisical_token: ${{ secrets.INFISICAL_TOKEN }}
-          environment: "staging"
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
           run_install: true
+      - uses: zerodays/action-infisical@v1
+        with:
+          infisical_token: ${{ secrets.INFISICAL_TOKEN }}
+          environment: 'staging'
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          package-manager: pnpm
+          test-script: source .env && pnpm test
