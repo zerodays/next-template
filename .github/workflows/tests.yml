@@ -18,6 +18,7 @@ jobs:
         with:
           infisical_token: ${{ secrets.INFISICAL_TOKEN }}
           environment: 'staging'
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        with:
-          test-script: source .env && pnpm test
+      - name: Run tests
+        run: source .env && pnpm test
+      - name: Create report
+        run: source .env && pnpm jest --reporters="summary" --reporters="github-actions"
