@@ -17,7 +17,7 @@ const baseSchema = {
 const devSchema = {
   client: {
     NEXT_PUBLIC_SENTRY_DNS: z.string().optional(),
-    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.number().optional(),
+    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
   },
   // ... other dev/test-specific properties
 };
@@ -26,7 +26,7 @@ const devSchema = {
 const stagingSchema = {
   client: {
     NEXT_PUBLIC_SENTRY_DNS: z.string().optional(),
-    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.number().optional(),
+    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
   },
   // ... other staging-specific properties
 };
@@ -37,7 +37,7 @@ const productionSchema = {
     NEXT_PUBLIC_SENTRY_DNS: z
       .string()
       .min(1, { message: 'Sentry DNS is required in production' }),
-    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.number(),
+    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number(),
   },
   // ... other production-specific properties
 };
