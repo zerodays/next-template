@@ -10,9 +10,13 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           run_install: true
+      - uses: zerodays/action-infisical@v1
+        with:
+          infisical_token: ${{ secrets.INFISICAL_TOKEN }}
+          environment: "staging"
       - name: Lint
         run: |
-          pnpm lint
+          source .env && pnpm tsc
   typecheck:
     runs-on: ubuntu-latest
     steps:

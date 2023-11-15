@@ -14,6 +14,9 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           run_install: true
-      - uses: ArtiomTr/jest-coverage-report-action@v2
+      - uses: zerodays/action-infisical@v1
         with:
-          package-manager: pnpm
+          infisical_token: ${{ secrets.INFISICAL_TOKEN }}
+          environment: 'staging'
+      - name: Run tests
+        run: source .env && pnpm jest --reporters="summary" --reporters="github-actions"
