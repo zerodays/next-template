@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { withSentryConfig } = require('@sentry/nextjs');
+const {withAxiom} = require("next-axiom")
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -10,7 +11,7 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(
-  withSentryConfig(
+  withAxiom(withSentryConfig(
     nextConfig,
     {
       // For all available options, see:
@@ -42,4 +43,4 @@ module.exports = withBundleAnalyzer(
       disableLogger: true,
     },
   ),
-);
+));

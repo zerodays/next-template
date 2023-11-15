@@ -1,10 +1,15 @@
 import { Inter } from 'next/font/google';
 
 import SampleForm from '@/components/sample-form';
+import serverLogger from '@/lib/axiom/log-server';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Page() {
+  const logger = serverLogger();
+
+  logger.info('Hello from server logger!');
+
   return (
     <main
       className={`flex h-screen flex-col items-center justify-center gap-8 text-center ${inter.className}`}>
