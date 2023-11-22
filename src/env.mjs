@@ -52,17 +52,24 @@ const currentEnv = process.env.NODE_ENV || 'development'; // Default to 'develop
 let envSchema;
 switch (currentEnv) {
   case 'development':
-    envSchema = { ...baseSchema, ...devSchema };
+    envSchema = {
+      server: { ...baseSchema.server, ...devSchema.server },
+      client: { ...baseSchema.client, ...devSchema.client },
+    };
     break;
   case 'test':
   case 'staging':
-    envSchema = { ...baseSchema, ...stagingSchema };
+    envSchema = {
+      server: { ...baseSchema.server, ...stagingSchema.server },
+      client: { ...baseSchema.client, ...stagingSchema.client },
+    };
     break;
   case 'production':
-    envSchema = { ...baseSchema, ...productionSchema };
+    envSchema = {
+      server: { ...baseSchema.server, ...productionSchema.server },
+      client: { ...baseSchema.client, ...productionSchema.client },
+    };
     break;
-  default:
-    throw new Error(`Unknown environment: ${currentEnv}`);
 }
 
 // Runtime environment variables (for Next.js edge runtimes or client-side)
@@ -76,7 +83,10 @@ const runtimeEnv = {
 };
 
 // Skip env validation flag (useful for Docker builds)
-const skipValidation = !!process.env.SKIP_ENV_VALIDATION;
+// Also skip on lint, see: https://github.com/t3-oss/t3-env/issues/102
+const skipValidation =
+  !!process.env.SKIP_ENV_VALIDATION ||
+  process.env.npm_lifecycle_script === 'next lint';
 
 // Treat empty strings as undefined
 const emptyStringAsUndefined = true;
