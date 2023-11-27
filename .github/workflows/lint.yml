@@ -13,7 +13,8 @@ jobs:
       - uses: zerodays/action-infisical@v1
         with:
           infisical_token: ${{ secrets.INFISICAL_TOKEN }}
-          environment: "staging"
+          workspace_id: ${{ secrets.INFISICAL_WORKSPACE_ID }}
+          environment: 'staging'
       - name: Lint
         run: |
           source .env && pnpm tsc
