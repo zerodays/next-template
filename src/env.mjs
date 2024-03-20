@@ -20,7 +20,7 @@ const baseSchema = {
 // Development environment-specific schema
 const devSchema = {
   client: {
-    NEXT_PUBLIC_SENTRY_DNS: z.string().optional(),
+    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
     NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
   },
   // ... other dev/test-specific properties
@@ -29,7 +29,7 @@ const devSchema = {
 // Staging environment-specific schema
 const stagingSchema = {
   client: {
-    NEXT_PUBLIC_SENTRY_DNS: z.string().optional(),
+    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
     NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
   },
   // ... other staging-specific properties
@@ -38,7 +38,7 @@ const stagingSchema = {
 // Production environment-specific schema
 const productionSchema = {
   client: {
-    NEXT_PUBLIC_SENTRY_DNS: z
+    NEXT_PUBLIC_SENTRY_DSN: z
       .string()
       .min(1, { message: 'Sentry DNS is required in production' }),
     NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number(),
@@ -70,7 +70,7 @@ const runtimeEnv = {
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
   SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
-  NEXT_PUBLIC_SENTRY_DNS: process.env.NEXT_PUBLIC_SENTRY_DNS,
+  NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DNS,
   NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE:
     process.env.NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE,
 };
